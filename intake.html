@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,100,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202609260232" />
+  <link rel="stylesheet" href="styles.css?v=202609260304" />
 </head>
 <body>
   <header class="topbar">
@@ -75,7 +75,7 @@
               <input id="dob" name="dob" type="date" autocomplete="bday" required />
               <p class="error" data-for="dob"></p>
             </div>
-            <div class="field span-2">
+            <div class="field">
               <label for="ssn">Social Security # <span class="req">*</span></label>
               <div class="secret">
                 <input id="ssn" name="ssn" type="password" inputmode="numeric" autocomplete="off" placeholder="123-45-6789" required />
@@ -139,7 +139,7 @@
         <fieldset class="form-section">
           <legend>Your job</legend>
           <div class="grid">
-            <div class="field span-2">
+            <div class="field span-2 field-location">
               <label for="workLocation">Work location</label>
               <select id="workLocation" name="workLocation">
                 <option value="">Choose your store…</option>
@@ -311,7 +311,7 @@
         <fieldset class="form-section">
           <legend>ID documents</legend>
           <p class="section-note">Upload a clear photo or PDF of each ID. The two IDs must be different, unless your first ID is a passport.</p>
-          <div class="grid">
+          <div class="grid grid-ids">
             <div class="field">
               <label for="id1">ID document #1 <span class="req">*</span></label>
               <label class="file-drop" for="id1">
@@ -404,7 +404,7 @@
     </div>
   </footer>
 
-  <script src="config.js?v=202609260232"></script>
-  <script src="intake.js?v=202609260232"></script>
+  <script src="config.js?v=202609260304"></script>
+  <script src="intake.js?v=202609260304"></script>
 </body>
 </html>

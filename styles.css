@@ -403,3 +403,43 @@ button.loading .spinner { display: block; }
 @media (max-width: 640px) {
   .grid.inner { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---------- Intake: responsive layout (phone → tablet → laptop → large desktop) ---------- */
+.band-inner.intake { max-width: min(1100px, 100%); }
+
+/* "Have these ready" cards: stacked on phones, side by side when there's room */
+.intake .ready-list { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+/* Form grid: 1 column on phones, 2 on tablets, 3 on laptops/desktops */
+.intake-form .grid { grid-template-columns: 1fr; gap: 14px 16px; }
+.intake-form .grid.inner { grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.intake-form .span-2 { grid-column: 1 / -1; }
+
+@media (min-width: 640px) {
+  .intake-form .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .intake-form .grid.inner { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .intake-form .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 20px; }
+  .intake-form .grid.grid-ids { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .intake-form .form-section { margin-bottom: 22px; padding-top: 22px; }
+  .intake .band-title { font-size: 26px; margin-bottom: 22px; }
+  .intake-form button[type="submit"] { max-width: 360px; height: 46px; font-size: 15px; }
+  .intake-form .check { max-width: 760px; }
+}
+@media (min-width: 1600px) {
+  .band-inner.intake { max-width: 1240px; }
+  .intake-form input[type="text"], .intake-form input[type="email"], .intake-form input[type="tel"],
+  .intake-form input[type="date"], .intake-form input[type="password"], .intake-form select { height: 46px; font-size: 17px; }
+  .intake-form .field label { font-size: 13px; }
+  .intake .ready-list li { font-size: 16px; }
+}
+
+/* Hero scales with the screen instead of a fixed height */
+.hero { height: clamp(190px, 18vw, 320px); }
+.hero-copy h1 { font-size: clamp(28px, 3.6vw, 52px); }
+.hero-copy p { font-size: clamp(15px, 1.2vw, 19px); }
+.stripes span { width: clamp(38px, 5vw, 96px); }
+@media (min-width: 1024px) {
+  .intake-form .field-location { grid-column: span 2; }
+}
