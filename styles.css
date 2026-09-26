@@ -346,3 +346,60 @@ button.loading .spinner { display: block; }
 }
 
 .cards-after-intake { counter-reset: step 1; }
+
+/* ---------- Intake form ---------- */
+.intake-form { margin-top: 26px; }
+.form-section { border: 0; margin: 0 0 18px; padding: 18px 0 0; border-top: 1px solid #2a2a2a; }
+.form-section legend {
+  padding: 0 10px 0 0; font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--lime);
+}
+.section-note { margin: 0 0 14px; font-size: 13.5px; color: #cfcfcf; line-height: 1.5; }
+.req { color: var(--error-on-dark); }
+.opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #9a9a9a; }
+.intake-form .hint { color: #9a9a9a; font-size: 12.5px; margin-top: 6px; }
+.grid.inner { grid-template-columns: 1fr 1fr; gap: 0 12px; }
+
+.intake-form select,
+.intake-form input[type="date"],
+.intake-form input[type="password"] {
+  width: 100%; height: 40px; padding: 0 16px;
+  font: inherit; font-size: 16px; color: var(--ink);
+  background: #fff; border: 2px solid #fff; border-radius: 999px; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+.intake-form select {
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+.intake-form input[type="date"] { line-height: 36px; }
+.intake-form select:focus,
+.intake-form input[type="date"]:focus,
+.intake-form input[type="password"]:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.35); }
+
+.secret { position: relative; }
+.secret input { padding-right: 76px; }
+.secret-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  height: 30px; padding: 0 12px; border: 0; border-radius: 999px;
+  background: #f0f0f0; color: #111; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+}
+
+.field label.file-drop {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 64px; padding: 12px 16px; border: 2px dashed #555; border-radius: 14px;
+  background: #151515; color: #d0d0d0; font-size: 14px; font-weight: 600;
+  text-transform: none; letter-spacing: 0; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.file-drop:hover { border-color: #888; }
+.file-drop.has-file { border-style: solid; border-color: var(--lime); color: #fff; background: rgba(183,189,43,.08); }
+.file-drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.field.invalid .file-drop { border-color: var(--error-on-dark); }
+.field.invalid select, .field.invalid input[type="date"], .field.invalid input[type="password"] { border-color: var(--error-on-dark); }
+
+.band-link { color: #fff; text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .grid.inner { grid-template-columns: 1fr 1fr; }
+}
