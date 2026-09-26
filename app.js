@@ -2,6 +2,7 @@
   const form = document.getElementById("onboard-form");
   const submitBtn = document.getElementById("submit");
   const formError = document.getElementById("form-error");
+  const submitStatus = document.getElementById("submit-status");
   const scriptUrl = (window.ONBOARD_CONFIG || {}).scriptUrl || "";
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -82,12 +83,21 @@
     }
 
     setLoading(true);
+    // Google Apps Script usually answers in 2–5s but can occasionally take 20s+,
+    // so keep the person informed instead of showing a silent spinner.
+    submitStatus.textContent = "Submitting your info…";
+    const slowTimer = setTimeout(() => {
+      submitStatus.textContent = "Still working — this can take up to 30 seconds. Please don’t close this page.";
+    }, 6000);
+    const controller = new AbortController();
+    const abortTimer = setTimeout(() => controller.abort(), 60000);
     try {
       // Sent as text/plain so the browser skips the CORS preflight that Apps Script can't answer.
       const res = await fetch(scriptUrl, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(v),
+        signal: controller.signal,
       });
       const data = await res.json();
 
@@ -105,8 +115,13 @@
         formError.textContent = data.message || "Something went wrong. Please try again.";
       }
     } catch (err) {
-      formError.textContent = "We couldn’t reach the server. Check your connection and try again.";
+      formError.textContent = err.name === "AbortError"
+        ? "This is taking longer than usual. Please try again — if your first try went through, you won’t be signed up twice."
+        : "We couldn’t reach the server. Check your connection and try again.";
     } finally {
+      clearTimeout(slowTimer);
+      clearTimeout(abortTimer);
+      submitStatus.textContent = "";
       setLoading(false);
     }
   });
