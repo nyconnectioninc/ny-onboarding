@@ -1,15 +1,15 @@
 <!--
-  Paste this into the Zapier Gmail "Body" field (set Body Type = HTML).
-  Replace each [[Zapier: ...]] marker by inserting the matching field from the Google Sheets trigger step.
-  Replace every ✏️ EDIT item (text + example.com links) with your real steps, links, and contacts.
-  Built with tables + inline styles so it renders in Gmail, Outlook, and Apple Mail.
+  Welcome email body for the Zapier "NY Onboarding - Welcome Email" Zap (Outlook step, Body Format = HTML).
+  [[Zapier: First Name]] is swapped for the First Name field from the Google Sheets trigger.
+  LINK PLACEHOLDERS to replace when real links are ready (search for "LINK:"):
+    - LINK: Verizon Training / Myworkday Portal
+  Tables + inline styles only, so it renders in Gmail, Outlook, and Apple Mail.
 -->
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Your onboarding checklist is inside. Complete these steps before your first day.</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">Your NY Connection onboarding guide: background check, ADP, handbook, Verizon credentials, and P1 training.</div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f2f2f2;">
   <tr>
     <td align="center" style="padding:24px 12px;">
-
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;font-family:Helvetica,Arial,sans-serif;color:#111111;">
 
         <!-- Top bar -->
@@ -19,52 +19,62 @@
           </td>
         </tr>
 
-        <!-- Stripe bar (lime / red / dark red) -->
+        <!-- Stripe bar -->
         <tr>
           <td style="padding:0;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td width="34%" height="8" style="background:#b7bd2b;font-size:0;line-height:0;">&nbsp;</td>
-                <td width="33%" height="8" style="background:#e4002b;font-size:0;line-height:0;">&nbsp;</td>
-                <td width="33%" height="8" style="background:#a3101f;font-size:0;line-height:0;">&nbsp;</td>
-              </tr>
-            </table>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+              <td width="34%" height="8" style="background:#b7bd2b;font-size:0;line-height:0;">&nbsp;</td>
+              <td width="33%" height="8" style="background:#e4002b;font-size:0;line-height:0;">&nbsp;</td>
+              <td width="33%" height="8" style="background:#a3101f;font-size:0;line-height:0;">&nbsp;</td>
+            </tr></table>
           </td>
         </tr>
 
         <!-- Hero -->
         <tr>
-          <td align="center" style="background:#1f1f21;padding:44px 24px 40px;">
-            <h1 style="margin:0;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;">Welcome to the team, [[Zapier: First Name]]!</h1>
-            <p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#dddddd;">Your new career starts here.</p>
+          <td align="center" style="background:#1f1f21;padding:40px 24px 36px;">
+            <h1 style="margin:0;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;">Welcome to NY Connection, Inc.</h1>
+            <p style="margin:10px 0 0;font-size:15px;line-height:1.5;color:#dddddd;">Wireless Zone &nbsp;|&nbsp; Verizon Authorized Retailer</p>
           </td>
         </tr>
 
-        <!-- Black band with CTA -->
+        <!-- Stats strip -->
         <tr>
-          <td align="center" style="background:#000000;padding:26px 28px 30px;">
-            <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#ffffff;">
-              You’ve been approved to start onboarding. Complete the steps below
-              <strong>before your first day</strong> so you’re ready to hit the ground running.
-            </p>
-            <!-- Bulletproof pill button -->
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td align="center" bgcolor="#c8102e" style="border-radius:999px;">
-                  <!-- ✏️ EDIT: link to your main onboarding / paperwork portal -->
-                  <a href="https://example.com/paperwork" target="_blank"
-                     style="display:inline-block;padding:12px 40px;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:999px;">Start Onboarding</a>
-                </td>
-              </tr>
-            </table>
+          <td style="background:#000000;padding:18px 16px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+              <td width="33%" align="center" style="color:#ffffff;">
+                <div style="font-size:24px;font-weight:800;color:#ffffff;">80+</div>
+                <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#bbbbbb;">Locations</div>
+              </td>
+              <td width="34%" align="center" style="color:#ffffff;border-left:1px solid #333333;border-right:1px solid #333333;">
+                <div style="font-size:24px;font-weight:800;color:#ffffff;">14</div>
+                <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#bbbbbb;">States</div>
+              </td>
+              <td width="33%" align="center" style="color:#ffffff;">
+                <div style="font-size:24px;font-weight:800;color:#e4002b;">&#10138;</div>
+                <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#bbbbbb;">Still growing</div>
+              </td>
+            </tr></table>
           </td>
         </tr>
 
-        <!-- Checklist -->
+        <!-- Intro -->
         <tr>
-          <td style="background:#f2f2f2;padding:32px 20px 12px;">
-            <h2 style="margin:0;text-align:center;font-size:22px;font-weight:700;color:#111111;">Your Onboarding Checklist</h2>
-            <p style="margin:6px 0 20px;text-align:center;font-size:13px;color:#555555;">Complete each step before your start date.</p>
+          <td style="padding:30px 28px 8px;font-size:15px;line-height:1.65;color:#222222;">
+            <p style="margin:0 0 16px;font-size:17px;"><strong>Dear [[Zapier: First Name]],</strong></p>
+            <p style="margin:0 0 14px;">Welcome to NY Connection, Inc. and our family of affiliated companies!</p>
+            <p style="margin:0 0 14px;">We’re excited to have you join our team and become part of a company that is growing quickly across the country.</p>
+            <p style="margin:0 0 14px;">NY Connection currently operates over <strong>80 locations across 14 states</strong>, including Arkansas, Illinois, Louisiana, Maine, Missouri, Mississippi, New Hampshire, New Jersey, New Mexico, New York, Oklahoma, Rhode Island, Texas, and Vermont, and we’re continuing to expand into new markets.</p>
+            <p style="margin:0 0 14px;">As a Wireless Zone retailer representing Verizon, our growth is driven by the people behind our stores. We’re excited to have you as part of that next chapter and look forward to the contributions you’ll bring to the team.</p>
+            <p style="margin:0;">To help you get started, we’ve outlined the onboarding process below. Please review each section carefully and complete all required items as soon as they become available to you.</p>
+          </td>
+        </tr>
+
+        <!-- Steps -->
+        <tr>
+          <td style="background:#f2f2f2;padding:28px 20px 12px;">
+            <h2 style="margin:0;text-align:center;font-size:22px;font-weight:700;color:#111111;">Your Onboarding Steps</h2>
+            <p style="margin:6px 0 20px;text-align:center;font-size:13px;color:#555555;">Complete each item as soon as it becomes available to you.</p>
 
             <!-- Step 1 -->
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;margin-bottom:10px;border-radius:4px;">
@@ -72,10 +82,12 @@
                 <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
                   <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">1</div>
                 </td>
-                <td style="padding:16px 18px 16px 14px;">
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
                   <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 1</div>
-                  <div style="font-size:16px;font-weight:700;margin:2px 0 4px;">Complete your new-hire paperwork</div>
-                  <div style="font-size:14px;line-height:1.55;color:#444444;">✏️ EDIT: W-4, I-9, and direct deposit — <a href="https://example.com/paperwork" style="color:#c8102e;font-weight:700;">start here</a>. Bring two forms of ID on day one for your I-9.</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Complete Your Background Check</div>
+                  <p style="margin:0 0 8px;">If you have not already completed your background check, please check the personal email address you provided during the hiring process.</p>
+                  <p style="margin:0 0 8px;">Your background check invitation will be sent separately. Please also check your <strong>Spam/Junk</strong> folder if you do not see it.</p>
+                  <p style="margin:0;">Complete this as soon as possible, as your background check may need to be completed before additional onboarding steps can move forward.</p>
                 </td>
               </tr>
             </table>
@@ -86,10 +98,17 @@
                 <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
                   <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">2</div>
                 </td>
-                <td style="padding:16px 18px 16px 14px;">
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
                   <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 2</div>
-                  <div style="font-size:16px;font-weight:700;margin:2px 0 4px;">Set up your work accounts</div>
-                  <div style="font-size:14px;line-height:1.55;color:#444444;">✏️ EDIT: Watch for a separate email with your work login. Activate it within 48 hours.</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Complete Your ADP Enrollment</div>
+                  <p style="margin:0 0 8px;">You will receive an invitation to enroll in ADP, our payroll and employee information system. As part of your ADP onboarding, you will need to complete:</p>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 8px;">
+                    <tr><td style="padding:2px 8px 2px 0;color:#e4002b;font-weight:700;" valign="top">&#9679;</td><td style="padding:2px 0;font-size:14px;color:#333333;">Form I-9</td></tr>
+                    <tr><td style="padding:2px 8px 2px 0;color:#e4002b;font-weight:700;" valign="top">&#9679;</td><td style="padding:2px 0;font-size:14px;color:#333333;">Form W-4</td></tr>
+                    <tr><td style="padding:2px 8px 2px 0;color:#e4002b;font-weight:700;" valign="top">&#9679;</td><td style="padding:2px 0;font-size:14px;color:#333333;">Direct Deposit Setup</td></tr>
+                    <tr><td style="padding:2px 8px 2px 0;color:#e4002b;font-weight:700;" valign="top">&#9679;</td><td style="padding:2px 0;font-size:14px;color:#333333;">Any additional required employment documents</td></tr>
+                  </table>
+                  <p style="margin:0;">Please make sure all information is entered accurately and complete all assigned ADP tasks promptly.</p>
                 </td>
               </tr>
             </table>
@@ -100,10 +119,11 @@
                 <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
                   <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">3</div>
                 </td>
-                <td style="padding:16px 18px 16px 14px;">
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
                   <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 3</div>
-                  <div style="font-size:16px;font-weight:700;margin:2px 0 4px;">Complete required training</div>
-                  <div style="font-size:14px;line-height:1.55;color:#444444;">✏️ EDIT: Log in to the <a href="https://example.com/training" style="color:#c8102e;font-weight:700;">training portal</a> and finish the new-hire modules.</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Review &amp; Acknowledge the Employee Handbook</div>
+                  <p style="margin:0 0 8px;">You will receive access to the NY Connection Employee Handbook during onboarding. Please review the handbook carefully and complete the required acknowledgment.</p>
+                  <p style="margin:0;">The handbook contains important information regarding company policies, attendance, workplace conduct, employee expectations, procedures, and other important information about working with NY Connection.</p>
                 </td>
               </tr>
             </table>
@@ -114,10 +134,46 @@
                 <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
                   <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">4</div>
                 </td>
-                <td style="padding:16px 18px 16px 14px;">
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
                   <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 4</div>
-                  <div style="font-size:16px;font-weight:700;margin:2px 0 4px;">Review the employee handbook</div>
-                  <div style="font-size:14px;line-height:1.55;color:#444444;">✏️ EDIT: <a href="https://example.com/handbook" style="color:#c8102e;font-weight:700;">Read the handbook</a> and sign the acknowledgment.</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Verizon &amp; Wireless Zone Credentials</div>
+                  <p style="margin:0 0 12px;">Several accounts and systems will be created or assigned to you throughout the onboarding process. These may include:</p>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e5e5e5;border-radius:4px;margin:0 0 12px;">
+                    <tr>
+                      <td style="padding:10px 12px;border-bottom:1px solid #e5e5e5;">
+                        <div style="font-weight:700;font-size:15px;color:#111111;">Wireless Zone Email</div>
+                        <div style="font-size:13px;color:#555555;">Your company email will generally follow the format <strong style="color:#111111;">FirstName.LastName@wireless-zone.com</strong></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:10px 12px;border-bottom:1px solid #e5e5e5;">
+                        <div style="font-weight:700;font-size:15px;color:#111111;">RQ</div>
+                        <div style="font-size:13px;color:#555555;">Our point-of-sale system. Your Wireless Zone email will be used as your username.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:10px 12px;border-bottom:1px solid #e5e5e5;">
+                        <div style="font-weight:700;font-size:15px;color:#111111;">Omni</div>
+                        <div style="font-size:13px;color:#555555;">Verizon’s system used for wireless activations and account management.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:10px 12px;">
+                        <div style="font-weight:700;font-size:15px;color:#111111;">Optix</div>
+                        <div style="font-size:13px;color:#555555;">Verizon’s system used for Fios transactions and services.</div>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff4f5;border-left:4px solid #e4002b;">
+                    <tr>
+                      <td style="padding:12px 14px;font-size:13.5px;line-height:1.6;color:#333333;">
+                        <strong style="color:#a3101f;">Important:</strong> These credentials may not arrive at the same time. Some accounts cannot be created until previous onboarding steps have been completed and processed.<br><br>
+                        Please continuously monitor the personal email address you provided during onboarding, including your <strong>Spam/Junk</strong> folder. Some Verizon registration emails are <strong>time-sensitive</strong>, so complete any account registration or activation instructions as soon as you receive them.
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
@@ -128,39 +184,100 @@
                 <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
                   <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">5</div>
                 </td>
-                <td style="padding:16px 18px 16px 14px;">
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
                   <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 5</div>
-                  <div style="font-size:16px;font-weight:700;margin:2px 0 4px;">Confirm your first-day details</div>
-                  <div style="font-size:14px;line-height:1.55;color:#444444;">✏️ EDIT: Start date, store location, arrival time, and dress code.</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Complete Your Required P1 Trainings</div>
+                  <p style="margin:0 0 8px;">Once your Verizon credentials are available, you will be required to complete your assigned P1 trainings.</p>
+                  <p style="margin:0 0 14px;">These trainings are an important part of becoming fully operational and must be completed before you can independently perform certain Verizon transactions.</p>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 8px;">
+                    <tr>
+                      <td align="center" bgcolor="#c8102e" style="border-radius:999px;">
+                        <!-- LINK: Verizon Training / Myworkday Portal -->
+                        <a href="https://example.com/verizon-training" target="_blank" style="display:inline-block;padding:11px 26px;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:999px;">Access Verizon Training / Myworkday Portal</a>
+                      </td>
+                    </tr>
+                  </table>
+                  <p style="margin:0 0 8px;font-size:13px;color:#555555;">Save it as a favorite so you can do your readings from any device.</p>
+                  <p style="margin:0;">Your manager will provide guidance regarding your required courses and training expectations. Please work on your assigned training during your scheduled training time and complete all required courses promptly.</p>
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
 
-        <!-- Questions -->
-        <tr>
-          <td style="background:#f2f2f2;padding:6px 20px 30px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border-left:4px solid #e4002b;">
+            <!-- Step 6 -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;margin-bottom:10px;border-radius:4px;">
               <tr>
-                <td style="padding:16px 18px;font-size:14px;line-height:1.6;color:#333333;">
-                  <strong style="color:#111111;font-size:15px;">Questions?</strong><br>
-                  ✏️ EDIT: Contact your manager, [Manager Name], at [manager@email.com] or [phone].
+                <td width="56" align="center" valign="top" style="padding:18px 0 18px 16px;">
+                  <div style="width:36px;height:36px;line-height:36px;border-radius:50%;background:#e4002b;color:#ffffff;font-weight:700;font-size:15px;text-align:center;">6</div>
+                </td>
+                <td style="padding:16px 18px 18px 14px;font-size:14px;line-height:1.6;color:#333333;">
+                  <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Step 6 &middot; If applicable</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 8px;color:#111111;">Fios Registration</div>
+                  <p style="margin:0 0 8px;">Employees working at locations that offer Verizon Fios may need additional registration, credentials, and/or training. This process may not be available until your initial Verizon credentials have been established.</p>
+                  <p style="margin:0;">If Fios access is required for your location, your manager will provide instructions on completing your registration and obtaining access to Optix.</p>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <!-- Sign-off -->
+        <!-- Timeline -->
         <tr>
-          <td style="padding:26px 24px 28px;">
-            <p style="margin:0 0 4px;font-size:13px;color:#777777;">We have you on file as:</p>
-            <p style="margin:0 0 22px;font-size:14px;color:#111111;">[[Zapier: First Name]] [[Zapier: Last Name]] · [[Zapier: Mobile]]</p>
-            <p style="margin:0;font-size:15px;line-height:1.5;">See you soon,<br><strong>The NY Connection Team</strong></p>
-            <p style="margin:22px 0 0;font-size:12px;font-style:italic;line-height:1.5;color:#777777;">
-              You’re receiving this because you submitted the NY Connection employee onboarding form.
-            </p>
+          <td style="background:#f2f2f2;padding:6px 20px 12px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#1f1f21;border-radius:4px;">
+              <tr>
+                <td style="padding:20px 20px 22px;font-size:14px;line-height:1.6;color:#dddddd;">
+                  <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#b7bd2b;text-transform:uppercase;">Credential &amp; Access Timeline</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 10px;color:#ffffff;">You may not get every system on day one</div>
+                  <p style="margin:0 0 14px;">Your accounts are created through multiple systems, and some credentials depend on earlier onboarding steps being completed first. A typical onboarding progression looks like:</p>
+                  <p style="margin:0 0 14px;font-size:13px;line-height:2.1;color:#ffffff;">
+                    <span style="background:#e4002b;border-radius:999px;padding:4px 10px;white-space:nowrap;">Background Check</span> &rarr;
+                    <span style="background:#e4002b;border-radius:999px;padding:4px 10px;white-space:nowrap;">ADP Enrollment</span> &rarr;
+                    <span style="background:#e4002b;border-radius:999px;padding:4px 10px;white-space:nowrap;">Employee Handbook</span> &rarr;
+                    <span style="background:#a3101f;border-radius:999px;padding:4px 10px;white-space:nowrap;">Verizon / Wireless Zone Credentials</span> &rarr;
+                    <span style="background:#a3101f;border-radius:999px;padding:4px 10px;white-space:nowrap;">P1 Training</span> &rarr;
+                    <span style="background:#a3101f;border-radius:999px;padding:4px 10px;white-space:nowrap;">RQ / Omni / Optix Access</span> &rarr;
+                    <span style="background:#555555;border-radius:999px;padding:4px 10px;white-space:nowrap;">Fios Registration, if applicable</span>
+                  </p>
+                  <p style="margin:0 0 10px;">Your manager and our support team will work with you throughout this process.</p>
+                  <p style="margin:0;color:#ffffff;"><strong>If you receive an account invitation or registration email, please complete it promptly.</strong> Delaying a registration step can delay the next part of your onboarding.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- First-week priorities -->
+        <tr>
+          <td style="background:#f2f2f2;padding:0 20px 28px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border-radius:4px;">
+              <tr>
+                <td style="padding:20px 20px 18px;font-size:14px;line-height:1.6;color:#333333;">
+                  <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#e4002b;text-transform:uppercase;">Your First Week</div>
+                  <div style="font-size:17px;font-weight:700;margin:2px 0 10px;color:#111111;">During your first several days, focus on:</div>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 12px;">
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Completing all employment documentation</td></tr>
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Setting up ADP and Direct Deposit</td></tr>
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Reviewing the Employee Handbook</td></tr>
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Activating your Wireless Zone/Verizon credentials</td></tr>
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Beginning and completing your P1 training</td></tr>
+                    <tr><td style="padding:3px 10px 3px 0;color:#15803d;font-weight:700;" valign="top">&#10003;</td><td style="padding:3px 0;font-size:14px;color:#333333;">Working with your manager to confirm your system access</td></tr>
+                  </table>
+                  <p style="margin:0;">Once you successfully gain access to your Wireless Zone email and Verizon credentials, <strong>please notify your manager</strong> so they can confirm your remaining accounts and access are being set up correctly.</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Closing -->
+        <tr>
+          <td style="padding:30px 28px 30px;font-size:15px;line-height:1.65;color:#222222;">
+            <h2 style="margin:0 0 12px;font-size:22px;font-weight:700;color:#111111;">Welcome to the Team!</h2>
+            <p style="margin:0 0 14px;">We know there is a lot of information and several systems to get set up when joining the company. Don’t worry if everything isn’t available immediately. Your manager and our support team will help guide you through the process.</p>
+            <p style="margin:0 0 14px;">Please ask questions if you are unsure about any onboarding requirement rather than allowing an incomplete step to delay your access.</p>
+            <p style="margin:0 0 20px;">We’re excited to have you with us as NY Connection continues to grow and expand across the country.</p>
+            <p style="margin:0 0 4px;font-size:16px;"><strong>Welcome aboard!</strong></p>
+            <p style="margin:0;">NY Connection, Inc.<br><span style="color:#777777;font-size:13px;">Wireless Zone | Verizon Authorized Retailer</span></p>
           </td>
         </tr>
 
@@ -174,7 +291,6 @@
         </tr>
 
       </table>
-
     </td>
   </tr>
 </table>
