@@ -52,6 +52,7 @@ const INTAKE_HEADERS = [
   'Hiring Manager',
   'Work Location',
   'Code Used',
+  'Documents Folder',
 ];
 // The welcome email's intake link carries a private key (?k=...). Only submissions with a valid key are
 // accepted, so new hires don't need to type the onboarding code again. The key lives ONLY in
@@ -248,10 +249,11 @@ function handleIntake_(d, code) {
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(20000);
-    const folder = DriveApp.getFolderById(INTAKE_FOLDER_ID);
     const parts = f.name.split(' ');
     const last = parts.length > 1 ? parts[parts.length - 1] : parts[0];
     const first = parts.length > 1 ? parts.slice(0, -1).join(' ') : '';
+    // One subfolder per person, e.g. "Sanchez, Jon", inside the private ID folder (reused if it already exists).
+    const folder = personFolder_(last, first);
     const stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyyMMdd-HHmm');
     const base = (last + '_' + first).replace(/[^A-Za-z0-9_-]+/g, '') || 'NewHire';
 
@@ -284,6 +286,7 @@ function handleIntake_(d, code) {
       new Date(), safe_(f.name), safe_(f.middle), safe_(f.address), safe_(f.city), safe_(f.state), "'" + f.zip,
       usDate_(f.dob), safe_(f.badge), safe_(f.shirt), usDate_(f.start), "'" + ssn, safe_(f.email), phone,
       safe_(f.carrier), usDate_(f.available), url1, url2, safe_(f.manager), safe_(f.location), code,
+      folder.getUrl(),
     ]);
     return json_({ ok: true });
   } catch (err) {
@@ -302,7 +305,22 @@ function intakeSheet_() {
       .setFontWeight('bold').setBackground('#111111').setFontColor('#ffffff');
     sheet.setFrozenRows(1);
   }
+  // Add any header columns introduced after the tab was first created (e.g. "Documents Folder").
+  const width = INTAKE_HEADERS.length;
+  const current = sheet.getRange(1, 1, 1, width).getValues()[0];
+  if (current.some((h, i) => h !== INTAKE_HEADERS[i])) {
+    sheet.getRange(1, 1, 1, width).setValues([INTAKE_HEADERS])
+      .setFontWeight('bold').setBackground('#111111').setFontColor('#ffffff');
+  }
   return sheet;
+}
+
+function personFolder_(last, first) {
+  const root = DriveApp.getFolderById(INTAKE_FOLDER_ID);
+  const clean = (v) => String(v || '').replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ').trim();
+  const name = [clean(last), clean(first)].filter(Boolean).join(', ') || 'New Hire';
+  const existing = root.getFoldersByName(name);
+  return existing.hasNext() ? existing.next() : root.createFolder(name);
 }
 
 // "2026-10-06" (from the browser date picker) -> "10/6/2026"
