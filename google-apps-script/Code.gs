@@ -53,6 +53,10 @@ const INTAKE_HEADERS = [
   'Work Location',
   'Code Used',
 ];
+// Private key carried in the welcome email's intake link (?k=...). Only submissions with a valid key are
+// accepted, so new hires don't need to type the onboarding code again. Override or rotate it any time in
+// Project Settings -> Script Properties -> INTAKE_KEYS (comma-separated; update the email link to match).
+const DEFAULT_INTAKE_KEYS = 'xEYXeWQGJC0ReXMnyr69';
 const INTAKE_MAX_FILE_BYTES = 15 * 1024 * 1024;
 const INTAKE_FILE_TYPES = {
   'image/jpeg': 'jpg', 'image/png': 'png', 'image/heic': 'heic', 'image/heif': 'heif',
@@ -126,6 +130,14 @@ function doPost(e) {
   // Honeypot — pretend success so bots don't retry
   if (data.company) return json_({ ok: true });
 
+  // Intake form: authorized by the private key in the welcome email link, not the onboarding code.
+  if (data.action === 'intake') {
+    const keys = (PropertiesService.getScriptProperties().getProperty('INTAKE_KEYS') || DEFAULT_INTAKE_KEYS)
+      .split(',').map(k => k.trim()).filter(Boolean);
+    if (!keys.includes(String(data.intakeKey || '').trim())) return json_({ ok: false, error: 'invalid_link' });
+    return handleIntake_(data, 'Welcome email link');
+  }
+
   // 1. Validate the onboarding code (server-side, so it can't be bypassed)
   const code = String(data.code || '').trim().toUpperCase();
   const validCodes = (PropertiesService.getScriptProperties().getProperty('ACCESS_CODES') || DEFAULT_CODES)
@@ -134,7 +146,6 @@ function doPost(e) {
     return json_({ ok: false, error: 'invalid_code' });
   }
 
-  if (data.action === 'intake') return handleIntake_(data, code);
 
   // 2. Validate fields
   const firstName = clean_(data.firstName, 60);

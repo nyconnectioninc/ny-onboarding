@@ -5,6 +5,16 @@
   const submitStatus = document.getElementById("submit-status");
   const scriptUrl = (window.ONBOARD_CONFIG || {}).scriptUrl || "";
 
+  // Private key from the welcome email link (?k=...). Kept for the session so a page refresh still works.
+  const params = new URLSearchParams(location.search);
+  let intakeKey = params.get("k") || "";
+  try {
+    if (intakeKey) sessionStorage.setItem("nyIntakeKey", intakeKey);
+    else intakeKey = sessionStorage.getItem("nyIntakeKey") || "";
+  } catch (_) {}
+  const linkWarning = document.getElementById("link-warning");
+  if (!intakeKey && linkWarning) linkWarning.hidden = false;
+
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const MAX_UPLOAD_BYTES = 15 * 1024 * 1024; // server limit per file
   const IMAGE_MAX_EDGE = 2000; // shrink phone photos to keep uploads fast
@@ -70,7 +80,7 @@
     const g = (n) => (form.elements[n].value || "").trim();
     return {
       action: "intake",
-      code: g("code").toUpperCase(),
+      intakeKey,
       fullName: g("fullName"),
       middleName: g("middleName"),
       badgeName: g("badgeName"),
@@ -95,7 +105,6 @@
 
   function validate(v) {
     const e = {};
-    if (!v.code) e.code = "Enter the onboarding code you were given.";
     if (v.fullName.split(/\s+/).filter(Boolean).length < 2) e.fullName = "Enter your first and last name.";
     if (!v.badgeName) e.badgeName = "Enter your preferred name for your badge.";
     if (!v.dob) e.dob = "Enter your date of birth.";
@@ -213,9 +222,9 @@
         document.getElementById("intake-success-title").focus({ preventScroll: true });
         return;
       }
-      if (data.error === "invalid_code") {
-        setError("code", "That onboarding code isn’t valid. Double-check it with your manager.");
-        form.code.focus();
+      if (data.error === "invalid_link") {
+        if (linkWarning) { linkWarning.hidden = false; linkWarning.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        formError.textContent = "Please open this form from the link in your welcome email.";
       } else if (data.field) {
         setError(data.field, data.message || "Please check this field.");
         form.elements[data.field] && form.elements[data.field].focus();
