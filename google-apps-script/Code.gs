@@ -53,10 +53,10 @@ const INTAKE_HEADERS = [
   'Work Location',
   'Code Used',
 ];
-// Private key carried in the welcome email's intake link (?k=...). Only submissions with a valid key are
-// accepted, so new hires don't need to type the onboarding code again. Override or rotate it any time in
-// Project Settings -> Script Properties -> INTAKE_KEYS (comma-separated; update the email link to match).
-const DEFAULT_INTAKE_KEYS = 'xEYXeWQGJC0ReXMnyr69';
+// The welcome email's intake link carries a private key (?k=...). Only submissions with a valid key are
+// accepted, so new hires don't need to type the onboarding code again. The key lives ONLY in
+// Project Settings -> Script Properties -> INTAKE_KEYS (never in this public repo). To rotate it, change
+// that property and the ?k= value in the Zapier welcome email.
 const INTAKE_MAX_FILE_BYTES = 15 * 1024 * 1024;
 const INTAKE_FILE_TYPES = {
   'image/jpeg': 'jpg', 'image/png': 'png', 'image/heic': 'heic', 'image/heif': 'heif',
@@ -132,7 +132,7 @@ function doPost(e) {
 
   // Intake form: authorized by the private key in the welcome email link, not the onboarding code.
   if (data.action === 'intake') {
-    const keys = (PropertiesService.getScriptProperties().getProperty('INTAKE_KEYS') || DEFAULT_INTAKE_KEYS)
+    const keys = (PropertiesService.getScriptProperties().getProperty('INTAKE_KEYS') || '')
       .split(',').map(k => k.trim()).filter(Boolean);
     if (!keys.includes(String(data.intakeKey || '').trim())) return json_({ ok: false, error: 'invalid_link' });
     return handleIntake_(data, 'Welcome email link');
