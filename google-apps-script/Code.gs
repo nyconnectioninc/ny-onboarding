@@ -6,6 +6,9 @@
  * Full steps are in the repo README.
  */
 
+// ID of the Google Sheet (from its URL). Leave '' if this script is bound to the Sheet
+// via Extensions → Apps Script.
+const SHEET_ID = '1E4tPQ57LXT_DM98861MAsA7d_YU7jC0OCYWd1yulkwc';
 const SHEET_NAME = 'Submissions';
 const HEADERS = [
   'Timestamp',
@@ -26,7 +29,7 @@ const DEFAULT_CODES = 'VZW-ONBOARD';
  * the Welcome dropdown, and stores the valid onboarding code(s).
  */
 function setup() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = spreadsheet_();
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
 
@@ -114,7 +117,7 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(10000);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    const sheet = spreadsheet_().getSheetByName(SHEET_NAME);
     if (!sheet) return json_({ ok: false, error: 'not_setup', message: 'Onboarding is not set up yet. Please contact your manager.' });
 
     // Skip duplicates by email
@@ -146,6 +149,10 @@ function doPost(e) {
 }
 
 // ---- helpers ----
+
+function spreadsheet_() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
 
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);

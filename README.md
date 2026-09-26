@@ -33,6 +33,8 @@ Google Apps Script ── validates code ──► appends row to Sheet (Welcome
    `Timestamp · First Name · Last Name · Personal Email · Mobile · Code Used · Welcome · Email Sent · Notes`
    The **Welcome** column has a Pending / YES / NO dropdown.
 
+> **"Page Not Found" when opening Apps Script?** That's a Google bug when several Google accounts are signed in. Create a standalone project at [script.google.com](https://script.google.com) → **New project** instead. `Code.gs` finds the Sheet through `SHEET_ID` (the long ID in the Sheet's URL), so it works the same way. If **Run** hangs without asking for permission, sign out of your other Google accounts or use an Incognito window.
+
 **Changing the code:** in Apps Script, open **Project Settings (⚙️) → Script Properties** and edit `ACCESS_CODES`. You can list several codes separated by commas, e.g. `VZW-ONBOARD, VZW-FALL26`. The change takes effect immediately; you don't need to redeploy.
 
 ## 2. Deploy the Apps Script as a Web App
