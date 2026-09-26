@@ -7,102 +7,135 @@
   <title>Employee Onboarding · NY Connection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,100,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="page">
-    <section class="card" aria-labelledby="title">
-      <header class="brand">
-        <div class="logo" aria-hidden="true">NY</div>
-        <div>
-          <p class="eyebrow">NY Connection</p>
-          <h1 id="title">Welcome to the team.</h1>
-        </div>
-      </header>
+  <!-- Top bar -->
+  <header class="topbar">
+    <a class="wordmark" href="./" aria-label="NY Connection home">NY CONNECTION</a>
+  </header>
 
-      <!-- Form view -->
-      <div id="form-view">
-        <p class="lede">
-          We’re excited to have you join us. Enter your information below to start your onboarding.
-          Your welcome information will be sent to the personal email address you provide.
-        </p>
+  <!-- Hero with diagonal stripes -->
+  <section class="hero">
+    <div class="stripes stripes-left" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="stripes stripes-right" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="hero-copy">
+      <h1 id="title">Welcome to the team.</h1>
+      <p>Your new career starts here. Enter your info below to kick off onboarding.</p>
+    </div>
+  </section>
 
-        <form id="onboard-form" novalidate>
-          <div class="field">
+  <!-- Black form band -->
+  <section class="band" aria-labelledby="title">
+    <div id="form-view" class="band-inner">
+      <form id="onboard-form" novalidate>
+        <div class="grid">
+          <div class="field span-2">
             <label for="code">Onboarding code</label>
             <input id="code" name="code" type="text" autocomplete="off" autocapitalize="characters"
-                   spellcheck="false" placeholder="e.g. ABC-XXXXXX" required />
-            <p class="hint">Your manager or recruiter gave you this code.</p>
+                   spellcheck="false" placeholder="Code from your manager or recruiter" required />
             <p class="error" data-for="code"></p>
           </div>
 
-          <div class="row">
-            <div class="field">
-              <label for="firstName">First name</label>
-              <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
-              <p class="error" data-for="firstName"></p>
-            </div>
-            <div class="field">
-              <label for="lastName">Last name</label>
-              <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
-              <p class="error" data-for="lastName"></p>
-            </div>
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
+            <p class="error" data-for="firstName"></p>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
+            <p class="error" data-for="lastName"></p>
           </div>
 
           <div class="field">
-            <label for="email">Personal email address</label>
+            <label for="email">Personal email</label>
             <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required />
-            <p class="hint">Use an email address you can access outside of work.</p>
             <p class="error" data-for="email"></p>
           </div>
-
           <div class="field">
             <label for="mobile">Mobile number</label>
             <input id="mobile" name="mobile" type="tel" autocomplete="tel-national" inputmode="tel"
                    placeholder="(516) 555-1234" required />
             <p class="error" data-for="mobile"></p>
           </div>
-
-          <!-- Honeypot: hidden from people, bots tend to fill it -->
-          <div class="hp" aria-hidden="true">
-            <label for="company">Company</label>
-            <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-
-          <label class="check">
-            <input id="consent" name="consent" type="checkbox" required />
-            <span>I confirm the information above is mine and may be used for employee onboarding communications.</span>
-          </label>
-          <p class="error" data-for="consent"></p>
-
-          <p class="form-error" id="form-error" role="alert"></p>
-
-          <button type="submit" id="submit">
-            <span class="btn-label">Start onboarding</span>
-            <span class="spinner" aria-hidden="true"></span>
-          </button>
-
-          <p class="fineprint">Only submit this form if you were directed here as part of the NY Connection hiring process.</p>
-        </form>
-      </div>
-
-      <!-- Success view -->
-      <div id="success-view" hidden>
-        <div class="success-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h2 id="success-title">You’re all set.</h2>
-        <p class="lede" id="success-msg">
-          Thanks! Your information has been received. Once your manager approves your onboarding,
-          you’ll get a welcome email at <strong id="success-email"></strong> with everything you
-          need to finish before your first day.
-        </p>
-      </div>
-    </section>
 
-    <footer class="footer">Employee Onboarding • NY Connection</footer>
-  </main>
+        <!-- Honeypot: hidden from people, bots tend to fill it -->
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <label class="check">
+          <input id="consent" name="consent" type="checkbox" required />
+          <span>I confirm the information above is mine and may be used for employee onboarding communications. Welcome info will be sent to my personal email.</span>
+        </label>
+        <p class="error center" data-for="consent"></p>
+
+        <p class="form-error" id="form-error" role="alert"></p>
+
+        <button type="submit" id="submit">
+          <span class="btn-label">Start Onboarding</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+        <p class="band-note">Use an email address you can access outside of work.</p>
+      </form>
+    </div>
+
+    <div id="success-view" class="band-inner success" hidden>
+      <div class="success-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 id="success-title">You’re all set.</h2>
+      <p>Your information has been received. Once your manager approves your onboarding, you’ll get a
+        welcome email at <strong id="success-email"></strong> with everything you need before your first day.</p>
+    </div>
+  </section>
+
+  <p class="disclaimer">
+    Only submit this form if you were directed here as part of the NY Connection hiring process. Your information
+    goes directly to NY Connection management and is used only for employee onboarding. Questions about your
+    onboarding should be directed to your hiring manager.
+  </p>
+
+  <!-- What happens next -->
+  <section class="next">
+    <h2>What Happens Next?</h2>
+    <p class="sub">Here’s how onboarding works from the moment you hit submit.</p>
+    <ol class="cards">
+      <li class="card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 10h7M8.5 14h7M8.5 18h4"/></svg>
+        <span>Submit your info</span>
+      </li>
+      <li class="card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 12l2 2 4-4"/></svg>
+        <span>Manager reviews &amp; approves</span>
+      </li>
+      <li class="card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>
+        <span>Welcome email arrives</span>
+      </li>
+      <li class="card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5l1.5 1.5L8 5.5M4 12.5L5.5 14 8 11.5M4 18.5L5.5 20 8 17.5M11 7h9M11 13h9M11 19h9"/></svg>
+        <span>Complete your checklist</span>
+      </li>
+      <li class="card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
+        <span>Ready for day one</span>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <div class="footer-red" aria-hidden="true"></div>
+    <div class="footer-black">
+      <span class="wordmark small">NY CONNECTION</span>
+      <span class="divider" aria-hidden="true"></span>
+      <span>Employee Onboarding</span>
+    </div>
+  </footer>
 
   <script src="config.js"></script>
   <script src="app.js"></script>
