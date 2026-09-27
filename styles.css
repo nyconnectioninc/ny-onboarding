@@ -443,3 +443,31 @@ button.loading .spinner { display: block; }
 @media (min-width: 1024px) {
   .intake-form .field-location { grid-column: span 2; }
 }
+
+/* ---------- Intake: searchable store dropdown ---------- */
+.combo { position: relative; }
+.combo input[type="text"] {
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='7' cy='7' r='5' fill='none' stroke='%23111' stroke-width='2'/%3E%3Cpath d='M11 11l4 4' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+.combo input[type="text"]:disabled { opacity: 0.7; }
+.combo.has-value input[type="text"] { font-weight: 600; }
+.combo-list {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 6px);
+  max-height: min(320px, 50vh); overflow-y: auto; margin: 0; padding: 6px; list-style: none;
+  background: #fff; color: var(--ink); border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  -webkit-overflow-scrolling: touch;
+}
+.combo-list li { padding: 9px 12px; border-radius: 10px; cursor: pointer; line-height: 1.3; }
+.combo-list li .store-name { display: block; font-size: 15px; font-weight: 600; }
+.combo-list li .store-meta { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.combo-list li mark { background: rgba(228, 0, 43, 0.14); color: inherit; border-radius: 3px; padding: 0 1px; }
+.combo-list li[aria-selected="true"], .combo-list li:hover { background: #f2f2f2; }
+.combo-list li[aria-selected="true"] { box-shadow: inset 3px 0 0 var(--red); }
+.combo-list li.empty { cursor: default; color: var(--muted); font-size: 14px; }
+.combo-list li.empty:hover { background: none; }
+@media (min-width: 1600px) {
+  .combo-list li .store-name { font-size: 16px; }
+}

@@ -61,6 +61,133 @@
     });
   });
 
+  // ---- Work location: searchable store list from the toolboxstores sheet ----
+  const storeSearch = document.getElementById("storeSearch");
+  const storeCombo = document.getElementById("store-combo");
+  const storeList = document.getElementById("store-list");
+  let stores = null; // null until loaded; [] if the list couldn't be fetched (free text is allowed then)
+  let matches = [];
+  let active = -1;
+
+  const norm = (v) => String(v || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const storeLabel = (st) => `${st.name} (${st.id})`;
+  const escapeHtml = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const highlight = (text, words) => {
+    let html = escapeHtml(text);
+    words.forEach((w) => {
+      const re = new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "ig");
+      html = html.replace(re, "<mark>$1</mark>");
+    });
+    return html;
+  };
+
+  function renderStores() {
+    const q = storeSearch.value === form.workLocation.value ? "" : storeSearch.value;
+    const words = norm(q).split(" ").filter(Boolean);
+    matches = stores.filter((st) => words.every((w) => st._hay.includes(w)));
+    if (words.length && active < 0) active = 0;
+    if (active >= matches.length) active = matches.length - 1;
+    storeList.innerHTML = matches.length
+      ? matches.map((st, i) =>
+          `<li role="option" id="store-opt-${i}" data-i="${i}" aria-selected="${i === active}">` +
+          `<span class="store-name">${highlight(st.name, words)}</span>` +
+          `<span class="store-meta">${highlight(st.id, words)}${st.address ? " · " + highlight(st.address, words) : ""}</span></li>`
+        ).join("")
+      : `<li class="empty" role="option" aria-disabled="true">No stores match “${escapeHtml(q)}”. Try a town or store ID.</li>`;
+    storeSearch.setAttribute("aria-activedescendant", active >= 0 && matches.length ? `store-opt-${active}` : "");
+    const el = storeList.querySelector('[aria-selected="true"]');
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+
+  function openStores() {
+    if (!stores || !stores.length) return;
+    renderStores();
+    storeList.hidden = false;
+    storeSearch.setAttribute("aria-expanded", "true");
+  }
+
+  function closeStores() {
+    storeList.hidden = true;
+    storeSearch.setAttribute("aria-expanded", "false");
+    storeSearch.removeAttribute("aria-activedescendant");
+    active = -1;
+  }
+
+  function pickStore(st) {
+    form.workLocation.value = storeLabel(st);
+    storeSearch.value = storeLabel(st);
+    storeCombo.classList.add("has-value");
+    setError("workLocation", "");
+    closeStores();
+  }
+
+  storeSearch.addEventListener("focus", () => { if (storeSearch.value === form.workLocation.value) storeSearch.select(); openStores(); });
+  storeSearch.addEventListener("input", () => {
+    setError("workLocation", "");
+    if (stores && !stores.length) { form.workLocation.value = storeSearch.value.trim(); return; } // list unavailable: free text
+    form.workLocation.value = "";
+    storeCombo.classList.remove("has-value");
+    active = -1;
+    openStores();
+  });
+  storeSearch.addEventListener("keydown", (e) => {
+    if (!stores || !stores.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (storeList.hidden) return openStores();
+      if (!matches.length) return;
+      active = e.key === "ArrowDown" ? Math.min(active + 1, matches.length - 1) : Math.max(active - 1, 0);
+      renderStores();
+    } else if (e.key === "Enter" && !storeList.hidden) {
+      e.preventDefault(); // don't submit the form
+      if (matches[active]) pickStore(matches[active]);
+    } else if (e.key === "Escape" && !storeList.hidden) {
+      e.preventDefault();
+      closeStores();
+    }
+  });
+  storeSearch.addEventListener("blur", () => {
+    closeStores();
+    if (!stores || !stores.length || form.workLocation.value) return;
+    // Accept an exact typed match (store ID or name) without clicking
+    const typed = norm(storeSearch.value);
+    const exact = typed && stores.find((st) => norm(st.id) === typed || norm(st.name) === typed || norm(storeLabel(st)) === typed);
+    if (exact) pickStore(exact);
+  });
+  // mousedown (not click) so the choice lands before the input loses focus
+  storeList.addEventListener("mousedown", (e) => {
+    const li = e.target.closest("li[data-i]");
+    e.preventDefault();
+    if (li) pickStore(matches[Number(li.dataset.i)]);
+  });
+
+  function useStores(list) {
+    stores = list.map((st) => ({ ...st, _hay: norm(`${st.name} ${st.id} ${st.id.replace(/^wz/i, "")} ${st.address}`) }));
+    storeSearch.placeholder = "Search your store…";
+    storeSearch.disabled = false;
+  }
+
+  (async function loadStores() {
+    storeSearch.disabled = true;
+    try {
+      const cached = sessionStorage.getItem("nyStores");
+      if (cached) return useStores(JSON.parse(cached));
+    } catch (_) {}
+    try {
+      if (!scriptUrl || scriptUrl.startsWith("PASTE_")) throw new Error("not connected");
+      const res = await fetch(`${scriptUrl}?action=stores`);
+      const data = await res.json();
+      if (!data.ok || !Array.isArray(data.stores) || !data.stores.length) throw new Error("no stores");
+      useStores(data.stores);
+      try { sessionStorage.setItem("nyStores", JSON.stringify(data.stores)); } catch (_) {}
+    } catch (_) {
+      stores = [];
+      storeSearch.placeholder = "Type your store name or ID";
+      storeSearch.disabled = false;
+      document.getElementById("store-hint").textContent = "Couldn’t load the store list. Type your store’s town or ID instead.";
+    }
+  })();
+
   // ---- Errors ----
   function setError(name, msg) {
     const el = form.querySelector(`.error[data-for="${name}"]`);
@@ -116,6 +243,7 @@
     if (!v.city) e.city = "Enter your city.";
     if (!v.state) e.state = "Choose your state.";
     if (!/^\d{5}(-\d{4})?$/.test(v.zip)) e.zip = "Enter a 5-digit zip code.";
+    if (storeSearch.value.trim() && !v.workLocation) e.workLocation = "Pick your store from the list.";
     if (!v.startDate) e.startDate = "Enter your start date.";
     if (!v.availableDate) e.availableDate = "Enter your available start date.";
     if (!form.id1.files[0]) e.id1 = "Upload your first ID document.";
@@ -179,7 +307,7 @@
     Object.keys(v).concat(["id1", "id2"]).forEach((k) => setError(k, errors[k]));
     const firstBad = Object.keys(errors)[0];
     if (firstBad) {
-      const el = form.elements[firstBad];
+      const el = firstBad === "workLocation" ? storeSearch : form.elements[firstBad];
       el.scrollIntoView({ behavior: "smooth", block: "center" });
       el.focus({ preventScroll: true });
       return;

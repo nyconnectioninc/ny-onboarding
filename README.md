@@ -22,7 +22,7 @@ Google Apps Script ── validates code ──► appends row to Sheet (Welcome
 |---|---|
 | Site | https://nyconnectioninc.github.io/ny-onboarding/ |
 | Repo | https://github.com/nyconnectioninc/ny-onboarding |
-| Sheet | *NY Connection Onboarding* → **Submissions** tab (jonsanchez0009@gmail.com's Drive) |
+| Sheet | *ONBOARDING (Responses)* → **Submissions** tab (approvals), next to the Google Form responses and the **Web Intake** tab. Moved from the standalone *NY Connection Onboarding* sheet on 2026-09-27 (`migrateSubmissions()` copied the existing rows). |
 | Apps Script | Standalone project *NY Connection Onboarding Backend* (script.google.com) |
 | Zaps | *NY Onboarding - Welcome Email* and *NY Onboarding - Manager Alert* |
 | Access code | `VZW-ONBOARD` |

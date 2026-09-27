@@ -7,8 +7,11 @@
  */
 
 // ID of the Google Sheet (from its URL). Leave '' if this script is bound to the Sheet
-// via Extensions → Apps Script.
-const SHEET_ID = '1E4tPQ57LXT_DM98861MAsA7d_YU7jC0OCYWd1yulkwc';
+// via Extensions → Apps Script. Approvals live in the "ONBOARDING (Responses)" spreadsheet,
+// next to the Google Form responses and the Web Intake tab.
+const SHEET_ID = '1rXHHP2pwSvaMndk7vpXZ2XEQtHZC0JnEsAH1FKaX0WI';
+// Former standalone "NY Connection Onboarding" sheet, only used by migrateSubmissions().
+const OLD_SHEET_ID = '1E4tPQ57LXT_DM98861MAsA7d_YU7jC0OCYWd1yulkwc';
 const SHEET_NAME = 'Submissions';
 const HEADERS = [
   'Timestamp',
@@ -28,8 +31,8 @@ const DEFAULT_CODES = 'VZW-ONBOARD';
 // Rows go to a "Web Intake" tab in the existing "ONBOARDING (Responses)" spreadsheet.
 const INTAKE_SHEET_ID = '1rXHHP2pwSvaMndk7vpXZ2XEQtHZC0JnEsAH1FKaX0WI';
 const INTAKE_TAB = 'Web Intake';
-// Private Drive folder (jonsanchez0009) where uploaded ID documents are saved.
-const INTAKE_FOLDER_ID = '1JcVW0-RP1pgLCef9wbxOfdqKs9WEBUvP';
+// "ONBOARDING (File responses)" folder (owned by Bob, shared as Editor with jonsanchez0009) where uploaded ID documents are saved.
+const INTAKE_FOLDER_ID = '1IrQov3C_2nU55AJAlFp0tSisngVKNH018QkfQncterxKucUY8cfgYg8VYtJUbjfmrcv3YKKi';
 const INTAKE_HEADERS = [
   'Timestamp',
   'First & Last Name',
@@ -58,6 +61,11 @@ const INTAKE_HEADERS = [
 // accepted, so new hires don't need to type the onboarding code again. The key lives ONLY in
 // Project Settings -> Script Properties -> INTAKE_KEYS (never in this public repo). To rotate it, change
 // that property and the ?k= value in the Zapier welcome email.
+// Store list for the intake form's Work location dropdown: "toolboxstores" sheet → Stores tab
+// (Store id | name | address | …). Edit that sheet and the form picks it up within STORES_CACHE_SECONDS.
+const STORES_SHEET_ID = '1P8qh5KjPBYM61xYYG--SYCSm2h-s7SudoJq4I9-2YVo';
+const STORES_TAB = 'Stores';
+const STORES_CACHE_SECONDS = 600;
 const INTAKE_MAX_FILE_BYTES = 15 * 1024 * 1024;
 const INTAKE_FILE_TYPES = {
   'image/jpeg': 'jpg', 'image/png': 'png', 'image/heic': 'heic', 'image/heif': 'heif',
@@ -108,6 +116,22 @@ function setup() {
 }
 
 /**
+ * One-time move: copies every row from the old sheet's Submissions tab into this one,
+ * keeping Welcome and Email Sent so no one gets a second welcome email. Run setup() first.
+ * Safe to re-run: it does nothing if the new tab already has rows.
+ */
+function migrateSubmissions() {
+  const src = SpreadsheetApp.openById(OLD_SHEET_ID).getSheetByName(SHEET_NAME);
+  const dest = spreadsheet_().getSheetByName(SHEET_NAME);
+  if (dest.getLastRow() > 1) { Logger.log('New Submissions tab already has rows; nothing copied.'); return; }
+  const n = src.getLastRow() - 1;
+  if (n < 1) { Logger.log('No rows to copy.'); return; }
+  const rows = src.getRange(2, 1, n, HEADERS.length).getValues();
+  dest.getRange(2, 1, n, HEADERS.length).setValues(rows);
+  Logger.log('Copied ' + n + ' row(s) to ' + SHEET_NAME + ' in ' + spreadsheet_().getName() + '.');
+}
+
+/**
  * Change the valid code(s) any time: edit the value below and run this function,
  * or edit Project Settings → Script Properties → ACCESS_CODES directly.
  * Multiple codes are comma-separated, e.g. "VZW-ONBOARD, VZW-FALL26".
@@ -116,8 +140,30 @@ function setAccessCodes() {
   PropertiesService.getScriptProperties().setProperty('ACCESS_CODES', 'VZW-ONBOARD');
 }
 
-function doGet() {
+function doGet(e) {
+  if (e && e.parameter && e.parameter.action === 'stores') return json_({ ok: true, stores: stores_() });
   return json_({ ok: true, service: 'onboarding' });
+}
+
+/** Stores from the toolboxstores sheet as [{ id, name, address }], cached briefly. */
+function stores_() {
+  const cache = CacheService.getScriptCache();
+  const hit = cache.get('stores');
+  if (hit) return JSON.parse(hit);
+  const rows = SpreadsheetApp.openById(STORES_SHEET_ID).getSheetByName(STORES_TAB).getDataRange().getDisplayValues();
+  const head = rows.shift().map((h) => String(h).trim().toLowerCase());
+  const col = (name) => head.indexOf(name);
+  const iId = col('store id'), iName = col('name'), iAddr = col('address');
+  const list = rows
+    .map((r) => ({
+      id: String(r[iId] || '').trim(),
+      name: String(r[iName] || '').trim(),
+      address: String(iAddr >= 0 ? r[iAddr] : '').replace(/\s+/g, ' ').trim(),
+    }))
+    .filter((st) => st.id && st.name)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  cache.put('stores', JSON.stringify(list), STORES_CACHE_SECONDS);
+  return list;
 }
 
 function doPost(e) {
@@ -227,7 +273,7 @@ function handleIntake_(d, code) {
     carrier: clean_(d.carrier, 30),
     available: clean_(d.availableDate, 10),
     manager: clean_(d.hiringManager, 80),
-    location: clean_(d.workLocation, 80),
+    location: clean_(d.workLocation, 120),
   };
 
   const required = [['fullName', f.name, 'Enter your first and last name.'], ['address', f.address, 'Enter your address.'],
