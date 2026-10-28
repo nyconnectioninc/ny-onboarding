@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Employee Onboarding · NY Connection</title>
+  <title>Add a New Hire · NY Connection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,100,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=202609260304" />
+  <link rel="stylesheet" href="styles.css?v=202610281200" />
 </head>
 <body>
   <!-- Top bar -->
@@ -21,46 +21,117 @@
     <div class="stripes stripes-left" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="stripes stripes-right" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="hero-copy">
-      <h1 id="title">Welcome to the team.</h1>
-      <p>Your new career starts here. Enter your info below to kick off onboarding.</p>
+      <h1 id="title">Add a new hire.</h1>
+      <p>Hiring managers: enter the new hire&rsquo;s details to kick off their onboarding.</p>
     </div>
   </section>
 
   <!-- Black form band -->
   <section class="band" aria-labelledby="title">
     <div id="form-view" class="band-inner">
-      <form id="onboard-form" novalidate>
+      <form id="onboard-form" class="hire-form" novalidate>
         <div class="grid">
           <div class="field span-2">
             <label for="code">Onboarding code</label>
             <input id="code" name="code" type="text" autocomplete="off" autocapitalize="characters"
-                   spellcheck="false" placeholder="Code from your manager or recruiter" required />
+                   spellcheck="false" placeholder="Manager onboarding code" required />
             <p class="error" data-for="code"></p>
           </div>
-
-          <div class="field">
-            <label for="firstName">First name</label>
-            <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
-            <p class="error" data-for="firstName"></p>
-          </div>
-          <div class="field">
-            <label for="lastName">Last name</label>
-            <input id="lastName" name="lastName" type="text" autocomplete="family-name" required />
-            <p class="error" data-for="lastName"></p>
-          </div>
-
-          <div class="field">
-            <label for="email">Personal email</label>
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required />
-            <p class="error" data-for="email"></p>
-          </div>
-          <div class="field">
-            <label for="mobile">Mobile number</label>
-            <input id="mobile" name="mobile" type="tel" autocomplete="tel-national" inputmode="tel"
-                   placeholder="(516) 555-1234" required />
-            <p class="error" data-for="mobile"></p>
-          </div>
         </div>
+
+        <fieldset class="form-section">
+          <legend>New hire</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstName" type="text" autocomplete="off" required />
+              <p class="error" data-for="firstName"></p>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastName" type="text" autocomplete="off" required />
+              <p class="error" data-for="lastName"></p>
+            </div>
+            <div class="field">
+              <label for="email">Personal email</label>
+              <input id="email" name="email" type="email" autocomplete="off" inputmode="email" required />
+              <p class="hint">Their welcome email goes here.</p>
+              <p class="error" data-for="email"></p>
+            </div>
+            <div class="field">
+              <label for="mobile">Mobile number</label>
+              <input id="mobile" name="mobile" type="tel" autocomplete="off" inputmode="tel"
+                     placeholder="(516) 555-1234" required />
+              <p class="error" data-for="mobile"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>The job</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="role">Role</label>
+              <select id="role" name="role" required>
+                <option value="">Choose…</option>
+                <option>Sales Rep</option>
+                <option>Store Manager</option>
+                <option>Other</option>
+              </select>
+              <p class="error" data-for="role"></p>
+            </div>
+            <div class="field" id="role-other-field" hidden>
+              <label for="roleOther">Role title</label>
+              <input id="roleOther" name="roleOther" type="text" autocomplete="off" placeholder="e.g. Assistant Manager" />
+              <p class="error" data-for="roleOther"></p>
+            </div>
+            <div class="field span-2">
+              <label for="storeSearch">Work location</label>
+              <div class="combo" id="store-combo">
+                <input id="storeSearch" type="text" role="combobox" autocomplete="off" autocapitalize="off" spellcheck="false"
+                  aria-autocomplete="list" aria-expanded="false" aria-controls="store-list" aria-describedby="store-hint"
+                  placeholder="Loading stores…" />
+                <input type="hidden" id="workLocation" name="workLocation" />
+                <ul id="store-list" class="combo-list" role="listbox" aria-label="Stores" hidden></ul>
+              </div>
+              <p class="hint" id="store-hint">Search by town, street, or store ID (e.g. &ldquo;Brentwood&rdquo; or &ldquo;WZ1285&rdquo;).</p>
+              <p class="error" data-for="workLocation"></p>
+            </div>
+            <div class="field">
+              <label for="startDate">Start date</label>
+              <input id="startDate" name="startDate" type="date" required />
+              <p class="error" data-for="startDate"></p>
+            </div>
+            <div class="field">
+              <label for="hiringManager">Hiring manager</label>
+              <input id="hiringManager" name="hiringManager" type="text" autocomplete="name" required />
+              <p class="error" data-for="hiringManager"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Pay</legend>
+          <div class="grid">
+            <div class="field">
+              <span class="label" id="payType-label">Pay type</span>
+              <div class="seg" role="radiogroup" aria-labelledby="payType-label">
+                <label><input type="radio" name="payType" value="Hourly" checked /><span>Hourly</span></label>
+                <label><input type="radio" name="payType" value="Salary" /><span>Salary</span></label>
+              </div>
+              <p class="error" data-for="payType"></p>
+            </div>
+            <div class="field">
+              <label for="payAmount" id="payAmount-label">Hourly rate</label>
+              <div class="money">
+                <span aria-hidden="true">$</span>
+                <input id="payAmount" name="payAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="18.00" required />
+                <span class="unit" id="pay-unit" aria-hidden="true">/ hr</span>
+              </div>
+              <p class="error" data-for="payAmount"></p>
+            </div>
+          </div>
+        </fieldset>
 
         <!-- Honeypot: hidden from people, bots tend to fill it -->
         <div class="hp" aria-hidden="true">
@@ -70,18 +141,17 @@
 
         <label class="check">
           <input id="consent" name="consent" type="checkbox" required />
-          <span>I confirm the information above is mine and may be used for employee onboarding communications. Welcome info will be sent to my personal email.</span>
+          <span>I&rsquo;m the hiring manager for this person and the details above are correct. Once approved, the new hire gets their welcome email at the personal email above.</span>
         </label>
         <p class="error center" data-for="consent"></p>
 
         <p class="form-error" id="form-error" role="alert"></p>
 
         <button type="submit" id="submit">
-          <span class="btn-label">Start Onboarding</span>
+          <span class="btn-label">Add New Hire</span>
           <span class="spinner" aria-hidden="true"></span>
         </button>
         <p class="submit-status" id="submit-status" aria-live="polite"></p>
-        <p class="band-note">Use an email address you can access outside of work.</p>
       </form>
     </div>
 
@@ -89,38 +159,39 @@
       <div class="success-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <h2 id="success-title">You’re all set.</h2>
-      <p>Your information has been received. Once your manager approves your onboarding, you’ll get a
-        welcome email at <strong id="success-email"></strong> with everything you need before your first day.</p>
+      <h2 id="success-title" tabindex="-1">New hire added.</h2>
+      <p id="success-text">Once onboarding is approved, <strong id="success-name"></strong> gets a welcome email at
+        <strong id="success-email"></strong> with everything they need before their first day.</p>
+      <button type="button" id="add-another" class="btn-secondary">Add another hire</button>
     </div>
   </section>
 
   <p class="disclaimer">
-    Only submit this form if you were directed here as part of the NY Connection hiring process. Your information
-    goes directly to NY Connection management and is used only for employee onboarding. Questions about your
-    onboarding should be directed to your hiring manager.
+    For NY Connection hiring managers only. Details entered here go directly to NY Connection management and are
+    used only for employee onboarding. Pay information is visible only to approvers. Questions? Contact
+    jon.sanchez@nyconnectionli.com.
   </p>
 
   <!-- What happens next -->
   <section class="next">
     <h2>What Happens Next?</h2>
-    <p class="sub">Here’s how onboarding works from the moment you hit submit.</p>
+    <p class="sub">Here’s how onboarding works once you add a new hire.</p>
     <ol class="cards">
       <li class="card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 10h7M8.5 14h7M8.5 18h4"/></svg>
-        <span>Submit your info</span>
+        <span>You add the new hire</span>
       </li>
       <li class="card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 12l2 2 4-4"/></svg>
-        <span>Manager reviews &amp; approves</span>
+        <span>Approver sets Welcome to YES</span>
       </li>
       <li class="card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>
-        <span>Welcome email arrives</span>
+        <span>Welcome email goes to the new hire</span>
       </li>
       <li class="card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5l1.5 1.5L8 5.5M4 12.5L5.5 14 8 11.5M4 18.5L5.5 20 8 17.5M11 7h9M11 13h9M11 19h9"/></svg>
-        <span>Complete your checklist</span>
+        <span>They complete their intake &amp; checklist</span>
       </li>
       <li class="card">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
@@ -134,11 +205,12 @@
     <div class="footer-black">
       <span class="wordmark small">NY CONNECTION</span>
       <span class="divider" aria-hidden="true"></span>
-      <span>Employee Onboarding</span>
+      <span>New Hire Onboarding</span>
     </div>
   </footer>
 
-  <script src="config.js?v=202609260304"></script>
-  <script src="app.js?v=202609260304"></script>
+  <script src="config.js?v=202610281200"></script>
+  <script src="store-picker.js?v=202610281200"></script>
+  <script src="app.js?v=202610281200"></script>
 </body>
 </html>

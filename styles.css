@@ -471,3 +471,55 @@ button.loading .spinner { display: block; }
 @media (min-width: 1600px) {
   .combo-list li .store-name { font-size: 16px; }
 }
+
+/* ---------- Hiring-manager form (index.html) ---------- */
+.hire-form .form-section { margin-top: 18px; }
+.hire-form .hint { color: #9a9a9a; font-size: 12.5px; margin: 6px 4px 0; }
+.hire-form .field .label {
+  display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.hire-form select,
+.hire-form input[type="date"] {
+  width: 100%; height: 40px; padding: 0 16px;
+  font: inherit; font-size: 16px; color: var(--ink);
+  background: #fff; border: 2px solid #fff; border-radius: 999px; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+.hire-form select {
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+.hire-form input[type="date"] { line-height: 36px; }
+.hire-form select:focus,
+.hire-form input[type="date"]:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.35); }
+.field.invalid select, .field.invalid input[type="date"], .field.invalid .seg, .field.invalid .money { border-color: var(--error-on-dark); }
+
+/* Hourly / Salary toggle */
+.seg { display: flex; height: 40px; padding: 3px; border-radius: 999px; background: #1c1c1c; border: 2px solid #333; }
+.seg label { flex: 1; position: relative; margin: 0; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span {
+  display: flex; align-items: center; justify-content: center; height: 100%; border-radius: 999px;
+  font-size: 14px; font-weight: 700; text-transform: none; letter-spacing: 0; color: #cfcfcf; transition: background .15s, color .15s;
+}
+.seg input:checked + span { background: var(--red); color: #fff; }
+.seg input:focus-visible + span { box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.45); }
+
+/* $ amount with unit */
+.money {
+  display: flex; align-items: center; height: 40px; padding: 0 16px; gap: 6px;
+  background: #fff; color: var(--ink); border: 2px solid #fff; border-radius: 999px;
+}
+.money:focus-within { border-color: var(--red); box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.35); }
+.money span { font-size: 16px; font-weight: 700; }
+.money .unit { color: var(--muted); font-weight: 600; white-space: nowrap; }
+.money input[type="text"] { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.money input[type="text"]:focus { box-shadow: none; border: 0; }
+
+.btn-secondary {
+  margin-top: 18px; height: 40px; padding: 0 22px; border-radius: 999px; cursor: pointer;
+  background: transparent; color: #fff; border: 2px solid #fff; font: inherit; font-size: 14px; font-weight: 700;
+}
+.btn-secondary:hover { background: #fff; color: var(--ink); }

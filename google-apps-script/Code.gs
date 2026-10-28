@@ -23,7 +23,16 @@ const HEADERS = [
   'Welcome',     // Pending → change to YES to trigger the Zapier welcome email
   'Email Sent',  // Zapier writes a timestamp here after sending, so it never double-sends
   'Notes',
+  // Added by the hiring-manager form. Appended after Notes so the Zaps' column letters (Welcome = G, Email Sent = H) never move.
+  'Role',
+  'Work Location',
+  'Start Date',
+  'Hiring Manager',
+  'Pay Type',    // Hourly | Salary
+  'Pay Rate',    // $ per hour, or $ per year for Salary
 ];
+const ROLES = ['Sales Rep', 'Store Manager', 'Other'];
+const PAY_TYPES = ['Hourly', 'Salary'];
 const WELCOME_OPTIONS = ['Pending', 'YES', 'NO'];
 const DEFAULT_CODES = 'VZW-ONBOARD';
 
@@ -200,10 +209,25 @@ function doPost(e) {
   const email = clean_(data.email, 120).toLowerCase();
   const digits = String(data.mobile || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
 
-  if (!firstName) return fieldError_('firstName', 'Enter your first name.');
-  if (!lastName) return fieldError_('lastName', 'Enter your last name.');
+  const role = ROLES.includes(data.role) ? data.role : '';
+  const roleTitle = role === 'Other' ? clean_(data.roleOther, 60) : role;
+  const location = clean_(data.workLocation, 120);
+  const startDate = /^\d{4}-\d{2}-\d{2}$/.test(data.startDate || '') ? usDate_(data.startDate) : '';
+  const manager = clean_(data.hiringManager, 80);
+  const payType = PAY_TYPES.includes(data.payType) ? data.payType : '';
+  const payRate = Math.round(Number(data.payAmount) * 100) / 100;
+
+  if (!firstName) return fieldError_('firstName', "Enter the new hire's first name.");
+  if (!lastName) return fieldError_('lastName', "Enter the new hire's last name.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return fieldError_('email', 'Enter a valid email address.');
   if (digits.length !== 10) return fieldError_('mobile', 'Enter a 10-digit mobile number.');
+  if (!role) return fieldError_('role', 'Choose a role.');
+  if (!roleTitle) return fieldError_('roleOther', 'Enter the role title.');
+  if (!location) return fieldError_('workLocation', "Choose the store they'll work at.");
+  if (!startDate) return fieldError_('startDate', 'Enter the start date.');
+  if (!manager) return fieldError_('hiringManager', "Enter the hiring manager's name.");
+  if (!payType) return fieldError_('payType', 'Choose hourly or salary.');
+  if (!(payRate > 0) || payRate > 1000000) return fieldError_('payAmount', payType === 'Salary' ? 'Enter the annual salary.' : 'Enter the hourly rate.');
   if (data.consent !== true) return fieldError_('consent', 'Please confirm before continuing.');
 
   const mobile = '(' + digits.slice(0, 3) + ') ' + digits.slice(3, 6) + '-' + digits.slice(6);
@@ -234,7 +258,14 @@ function doPost(e) {
       'Pending',
       '',
       '',
+      safe_(roleTitle),
+      safe_(location),
+      startDate,
+      safe_(manager),
+      payType,
+      payRate,
     ]);
+    sheet.getRange(sheet.getLastRow(), HEADERS.indexOf('Pay Rate') + 1).setNumberFormat('$#,##0.00');
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: 'server', message: 'Something went wrong. Please try again in a minute.' });

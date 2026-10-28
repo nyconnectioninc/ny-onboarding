@@ -63,7 +63,7 @@ Google Apps Script ── validates code ──► appends row to Sheet (Welcome
 1. Create a Sheet at [sheets.new](https://sheets.new) named **NY Connection Onboarding**.
 2. Open **Extensions → Apps Script**, paste in `google-apps-script/Code.gs`, and save.
 3. Select **`setup`** and click **Run**. Approve the permissions prompt. On the "unverified app" warning, click **Advanced → Go to (project)**.
-4. A **Submissions** tab now exists with these columns: `Timestamp · First Name · Last Name · Personal Email · Mobile · Code Used · Welcome · Email Sent · Notes`. The **Welcome** column has a Pending / YES / NO dropdown.
+4. A **Submissions** tab now exists with these columns: `Timestamp · First Name · Last Name · Personal Email · Mobile · Code Used · Welcome · Email Sent · Notes · Role · Work Location · Start Date · Hiring Manager · Pay Type · Pay Rate`. The **Welcome** column has a Pending / YES / NO dropdown. The last six columns come from the hiring-manager form and sit after Notes on purpose, so the Zaps' column letters (Welcome = G, Email Sent = H) never shift.
 
 > **Quirk: "Page Not Found" or a Run that hangs.** Both come from a Google bug when several Google accounts are signed in to the same browser. The fix we used: create a **standalone** project at [script.google.com](https://script.google.com) → **New project**. `Code.gs` opens the Sheet by `SHEET_ID`, so it doesn't need to be bound to the Sheet. If **Run** never shows the permission prompt, sign out of your other Google accounts, or use a window where only the owning account is signed in.
 
